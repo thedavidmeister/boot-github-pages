@@ -6,32 +6,31 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/clojure:lein-2.7.1
+      - image: circleci/clojure:boot-2.7.1
 
     working_directory: ~/repo
 
     environment:
-      LEIN_ROOT: "true"
       # Customize the JVM maximum heap limit
-      JVM_OPTS: -Xmx3200m
+      BOOT_JVM_OPTIONS: -Xmx3g -client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xverify:none
 
     steps:
       - checkout
+      - boot -h
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "project.clj" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: lein deps
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "project.clj" }}
-
-      # run tests!
-      - run: lein test
+      # # Download and cache dependencies
+      # - restore_cache:
+      #     keys:
+      #     - v1-dependencies-{{ checksum "project.clj" }}
+      #     # fallback to using the latest cache if no exact match is found
+      #     - v1-dependencies-
+      #
+      # - run: lein deps
+      #
+      # - save_cache:
+      #     paths:
+      #       - ~/.m2
+      #     key: v1-dependencies-{{ checksum "project.clj" }}
+      #
+      # # run tests!
+      # - run: lein test
