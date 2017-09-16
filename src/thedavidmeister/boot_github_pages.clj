@@ -4,4 +4,5 @@
   boot.core))
 
 (boot.core/deftask github-pages
- "Deploy to github pages")
+ "Deploy to github pages"
+ [])
