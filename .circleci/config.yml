@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - checkout
-      - boot -h
+      - run: boot -h
 
       # # Download and cache dependencies
       # - restore_cache:
