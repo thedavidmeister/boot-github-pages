@@ -6,7 +6,11 @@
 (set-env!
  :source-paths #{"src"}
  :dependencies
- '[[adzerk/bootlaces "0.1.13" :scope "test"]])
+ '[[org.clojure/clojure "1.9.0-alpha19"]
+   [org.clojure/clojurescript "1.9.908" :scope "test"]
+   [adzerk/bootlaces "0.1.13" :scope "test"]
+   [hoplon "7.1.0-SNAPSHOT" :scope "test"]
+   [adzerk/boot-cljs "2.1.3" :scope "test"]])
 
 (task-options!
  pom {:project project
@@ -15,5 +19,20 @@
       :url url
       :scm {:url url}})
 
-(require '[adzerk.bootlaces :refer :all])
+(require
+ '[adzerk.bootlaces :refer :all]
+ '[thedavidmeister.boot-github-pages :refer :all]
+ '[hoplon.boot-hoplon :refer [hoplon]]
+ '[adzerk.boot-cljs :refer [cljs]])
 (bootlaces! version)
+
+(deftask deploy-hoplon-demo
+ []
+ (set-env! :source-paths #(conj % "hoplon-demo"))
+ (comp
+  (hoplon)
+  (cljs
+   :optimizations :advanced)
+  (target
+   :dir #{"gh-pages"})))
+  ; (github-pages)))
