@@ -34,5 +34,5 @@
   (cljs
    :optimizations :advanced)
   (target
-   :dir #{"gh-pages"})))
-  ; (github-pages)))
+   :dir #{"gh-pages"})
+  (github-pages)))

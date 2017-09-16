@@ -6,4 +6,6 @@
 (boot.core/deftask github-pages
  "Deploy to github pages"
  []
- (prn (boot.git/clean?)))
+ (boot.core/with-pass-thru
+  [_]
+  (prn (boot.git/clean?))))
