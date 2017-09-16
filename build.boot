@@ -11,7 +11,7 @@
 (task-options!
  pom {:project project
       :version version
-      :descripion description
+      :description description
       :url url
       :scm {:url url}})
 
