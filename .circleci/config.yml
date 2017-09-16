@@ -28,7 +28,10 @@ jobs:
 
       - save_cache:
           paths:
-            - ~/.m2
+            - "~/bin"
+            - "~/.m2"
+            - "~/.boot/cache/bin"
+            - "~/.boot/cache/lib"
           key: v1-dependencies-{{ checksum "project.clj" }}
 
       # run tests!
