@@ -32,7 +32,7 @@ jobs:
             - "~/.m2"
             - "~/.boot/cache/bin"
             - "~/.boot/cache/lib"
-          key: v1-dependencies-{{ checksum "project.clj" }}
+          key: v1-dependencies-{{ checksum "build.boot" }}
 
       # deploy to clojars
       - deploy:
