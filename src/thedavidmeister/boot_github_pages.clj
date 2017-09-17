@@ -36,8 +36,8 @@
          (git-status-gh-pages-only?))
    (boot.util/info "Dirty repo containing gh-pages only changes\n")
    (boot.util/info (prn-str (boot.git/status)))
-   (boot.util/info "Committing everything in gh-pages before deployment\n")
-   (git-commit-push-all! "Preparing deployment for gh-pages"))
+   (boot.util/info "Committing everything in gh-pages before deployment\n"))
+   ; (git-commit-push-all! "Preparing deployment for gh-pages"))
 
   (when (boot.git/dirty?)
    (boot.util/info
