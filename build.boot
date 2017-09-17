@@ -35,12 +35,14 @@
 
 (deftask deploy-hoplon-demo
  []
- (set-env! :source-paths #(conj % "hoplon-demo"))
- (comp
-  (hoplon)
-  (cljs
-   :optimizations :advanced
-   :compiler-options {:closure-defines {'pages.index/build-id (str (medley.core/random-uuid))}})
-  (target
-   :dir #{"gh-pages"})
-  (github-pages)))
+ (let [build-id (str (medley.core/random-uuid))])
+ (info (str "Building ID: " build-id)
+  (set-env! :source-paths #(conj % "hoplon-demo"))
+  (comp
+   (hoplon)
+   (cljs
+    :optimizations :advanced
+    :compiler-options {:closure-defines {'pages.index/build-id build-id}})
+   (target
+    :dir #{"gh-pages"})
+   (github-pages))))
