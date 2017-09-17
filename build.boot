@@ -13,7 +13,8 @@
    [org.clojure/clojurescript "1.9.908" :scope "test"]
    [adzerk/bootlaces "0.1.13" :scope "test"]
    [hoplon "7.1.0-SNAPSHOT" :scope "test"]
-   [adzerk/boot-cljs "2.1.3" :scope "test"]])
+   [adzerk/boot-cljs "2.1.3" :scope "test"]
+   [medley "1.0.0" :scope "test"]])
 
 (task-options!
  pom {:project project
@@ -27,7 +28,8 @@
  '[thedavidmeister.boot-github-pages :refer :all]
  '[hoplon.boot-hoplon :refer [hoplon]]
  '[adzerk.boot-cljs :refer [cljs]]
- 'boot.git)
+ 'boot.git
+ 'medley.core)
 (bootlaces! version)
 
 (deftask deploy-hoplon-demo
@@ -39,7 +41,8 @@
  (comp
   (hoplon)
   (cljs
-   :optimizations :advanced)
+   :optimizations :advanced
+   :compiler-options {:closure-defines {'pages.index/build-id (medley.core/random-uuid)}})
   (target
    :dir #{"gh-pages"})
   (with-pass-thru [_]
