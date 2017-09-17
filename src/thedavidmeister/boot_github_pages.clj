@@ -15,7 +15,7 @@
     (boot.util/fail "Attempted to deploy to Github Pages from the wrong branch. Checkout master and try again.\n")))
   (when (boot.git/dirty?)
    (boot.util/info
-    (boot.git/status))
+    (pr-str (boot.git/status)))
    (boot.util/exit-error
     (boot.util/fail "Attempted to deploy to Github Pages with a dirty repo. Commit your changes and try again.\n")))
   (me.raynes.conch/with-programs [git]
