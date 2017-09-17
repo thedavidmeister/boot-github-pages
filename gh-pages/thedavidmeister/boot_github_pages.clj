@@ -34,6 +34,7 @@
   (when (and
          (boot.git/dirty?)
          (git-status-gh-pages-only?))
+   (boot.util/info "Dirty repo containing gh-pages only changes")
    (boot.util/info "Committing everything in gh-pages before deployment")
    (git-commit-push-all! "Preparing deployment for gh-pages"))
 
