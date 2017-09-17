@@ -7,6 +7,7 @@
  :source-paths #{"src"}
  :dependencies
  '[[org.clojure/clojure "1.9.0-alpha19"]
+   [me.raynes/conch "0.8.0"]
    [org.clojure/clojurescript "1.9.908" :scope "test"]
    [adzerk/bootlaces "0.1.13" :scope "test"]
    [hoplon "7.1.0-SNAPSHOT" :scope "test"]

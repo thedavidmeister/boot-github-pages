@@ -39,4 +39,5 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               boot build-jar push-snapshot
+              boot deploy-hoplon-demo
             fi
