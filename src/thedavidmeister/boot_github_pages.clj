@@ -11,7 +11,8 @@
  [message]
  (boot.jgit/with-repo
   (jgit/git-add repo ".")
-  (jgit/git-commit repo message)))
+  (jgit/git-commit repo message)
+  (jgit/git-push repo)))
 
 (defn git-status-gh-pages-only?
  []
@@ -33,7 +34,7 @@
          (boot.git/dirty?)
          (git-status-gh-pages-only?))
    (boot.util/info "Committing everything in gh-pages before deployment")
-   (git-commit-all! "Preparing deployment for gh-pages"))
+   (git-commit-push-all! "Preparing deployment for gh-pages"))
 
   (when (boot.git/dirty?)
    (boot.util/info
