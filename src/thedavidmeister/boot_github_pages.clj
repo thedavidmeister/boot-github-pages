@@ -7,7 +7,7 @@
   boot.util
   me.raynes.conch))
 
-(defn commit-all!
+(defn git-commit-push-all!
  [message]
  (boot.jgit/with-repo
   (jgit/git-add repo ".")
@@ -33,7 +33,8 @@
          (boot.git/dirty?)
          (git-status-gh-pages-only?))
    (boot.util/info "Committing everything in gh-pages before deployment")
-   (commit-all! "Preparing deployment for gh-pages"))
+   (git-commit-all! "Preparing deployment for gh-pages"))
+
   (when (boot.git/dirty?)
    (boot.util/info
     (pr-str (boot.git/status)))
