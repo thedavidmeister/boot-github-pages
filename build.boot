@@ -35,8 +35,8 @@
 
 (deftask deploy-hoplon-demo
  []
- (let [build-id (str (medley.core/random-uuid))])
- (info (str "Building ID: " build-id)
+ (let [build-id (str (medley.core/random-uuid))]
+  (info (str "Building ID: " build-id))
   (set-env! :source-paths #(conj % "hoplon-demo"))
   (comp
    (hoplon)
