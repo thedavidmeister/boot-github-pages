@@ -11,7 +11,9 @@
  [message]
  (boot.jgit/with-repo
   (jgit/git-add-and-commit repo message)
-  (jgit/with-identity {:name "~/.ssh/id_rsa.pub" :exclusive true}
+  (jgit/with-identity {:private "~/.ssh/id_rsa"
+                       :public "~/.ssh/id_rsa.pub"
+                       :exclusive true}
    (jgit/git-push repo))))
 
 (defn git-status-gh-pages-only?
