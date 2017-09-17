@@ -13,6 +13,14 @@
   (jgit/git-add repo ".")
   (jgit/git-commit repo message)))
 
+(defn git-status-gh-pages-only?
+ []
+ (->> (boot.git/status)
+  vals
+  (apply clojure.set/union)
+  (every?
+   #(clojure.string/starts-with? "gh-pages/" %))))
+
 (boot.core/deftask github-pages
  "Deploy to github pages"
  []
@@ -21,6 +29,9 @@
   (when (not (= "master" (boot.git/branch-current)))
    (boot.util/exit-error
     (boot.util/fail "Attempted to deploy to Github Pages from the wrong branch. Checkout master and try again.\n")))
+  (when (git-status-gh-pages-only?)
+   (boot.util/info "Committing everything in gh-pages before deployment")
+   (commit-all! "Preparing deployment for gh-pages"))
   (when (boot.git/dirty?)
    (boot.util/info
     (pr-str (boot.git/status)))
