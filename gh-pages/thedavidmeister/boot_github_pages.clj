@@ -11,9 +11,9 @@
  [message]
  (boot.jgit/with-repo
   (jgit/git-add-and-commit repo message)
-  (jgit/with-identity {:name "/Users/davidmeister/.ssh/id_rsa"
-                       :exclusive true}
-   (jgit/git-push repo))))
+  ; @todo - use jgit for this part
+  (me.raynes.conch/with-programs [git]
+   (git "push" "origin" "master"))))
 
 (defn git-status-gh-pages-only?
  []
