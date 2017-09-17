@@ -35,16 +35,11 @@
 (deftask deploy-hoplon-demo
  []
  (set-env! :source-paths #(conj % "hoplon-demo"))
- (when (boot.git/dirty?)
-  (exit-error
-   (fail "Attempting to build CLJS for Github Pages deployment with a dirty repo.")))
  (comp
   (hoplon)
   (cljs
    :optimizations :advanced
-   :compiler-options {:closure-defines {'pages.index/build-id (medley.core/random-uuid)}})
+   :compiler-options {:closure-defines {'pages.index/build-id (str (medley.core/random-uuid))}})
   (target
    :dir #{"gh-pages"})
-  (with-pass-thru [_]
-   (commit-all! "Build for Github Pages"))
   (github-pages)))
