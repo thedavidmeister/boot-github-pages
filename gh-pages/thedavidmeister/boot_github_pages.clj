@@ -11,8 +11,7 @@
  [message]
  (boot.jgit/with-repo
   (jgit/git-add-and-commit repo message)
-  (jgit/with-identity {:private "~/.ssh/id_rsa"
-                       :public "~/.ssh/id_rsa.pub"
+  (jgit/with-identity {:name "/Users/davidmeister/.ssh/id_rsa"
                        :exclusive true}
    (jgit/git-push repo))))
 
