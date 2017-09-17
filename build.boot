@@ -10,6 +10,7 @@
    [boot/core "2.7.2"]
    [boot/worker "2.7.2"]
    [me.raynes/conch "0.8.0"]
+   [clj-jgit "0.8.10"]
    [org.clojure/clojurescript "1.9.908" :scope "test"]
    [adzerk/bootlaces "0.1.13" :scope "test"]
    [hoplon "7.1.0-SNAPSHOT" :scope "test"]
