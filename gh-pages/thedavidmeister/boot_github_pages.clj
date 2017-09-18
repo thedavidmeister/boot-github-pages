@@ -9,11 +9,11 @@
 
 (defn git-commit-push-all!
  [message]
- (boot.jgit/with-repo
-  (jgit/git-add-and-commit repo message)
-  ; @todo - use jgit for this part
-  (me.raynes.conch/with-programs [git]
-   (git "push" "origin" "master"))))
+ ; @todo - use jgit for this part
+ (me.raynes.conch/with-programs [git]
+  (git "add" ".")
+  (git "commit" "-m" message)
+  (git "push" "origin" "master")))
 
 (defn git-gh-pages?
  [fp]
