@@ -15,13 +15,21 @@
   (me.raynes.conch/with-programs [git]
    (git "push" "origin" "master"))))
 
-(defn git-status-gh-pages-only?
+(defn git-gh-pages?
+ [fp]
+ (clojure.string/starts-with? fp "gh-pages/"))
+
+(defn git-status-flat
  []
  (->> (boot.git/status)
   vals
-  (apply clojure.set/union)
-  (every?
-   #(clojure.string/starts-with? % "gh-pages/"))))
+  (apply clojure.set/union)))
+
+(defn git-status-gh-pages-only?
+ []
+ (every?
+  git-gh-pages?
+  (git-status-flat)))
 
 (boot.core/deftask github-pages
  "Deploy to github pages"
@@ -43,7 +51,7 @@
 
   (when (boot.git/dirty?)
    (boot.util/info
-    (prn-str (boot.git/status)))
+    (prn-str (remove git-gh-pages? (git-status-flat))))
    (boot.util/exit-error
     (boot.util/fail "Attempted to deploy to Github Pages with a dirty repo. Commit your changes and try again.\n")))
   ; @todo - use jgit for this part
