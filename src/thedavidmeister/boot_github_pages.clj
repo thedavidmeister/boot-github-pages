@@ -36,8 +36,10 @@
          (git-status-gh-pages-only?))
    (boot.util/info "Dirty repo containing gh-pages only changes\n")
    (boot.util/info (prn-str (boot.git/status)))
-   (boot.util/info "Committing everything in gh-pages before deployment\n"))
-   ; (git-commit-push-all! "Preparing deployment for gh-pages"))
+   (boot.util/info "Committing everything in gh-pages before deployment\n")
+   ; this commit needs to skip CI or it can create an infinte deploy loop
+   ; https://circleci.com/docs/1.0/skip-a-build/
+   (git-commit-push-all! "Preparing deployment for gh-pages [skip ci]"))
 
   (when (boot.git/dirty?)
    (boot.util/info
