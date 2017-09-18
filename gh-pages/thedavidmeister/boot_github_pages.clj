@@ -43,7 +43,8 @@
          (boot.git/dirty?)
          (git-status-gh-pages-only?))
    (boot.util/info "Dirty repo containing gh-pages only changes\n")
-   (boot.util/info (prn-str (boot.git/status)))
+   (boot.util/info
+    (prn-str (remove git-gh-pages? (git-status-flat))))
    (boot.util/info "Committing everything in gh-pages before deployment\n")
    ; this commit needs to skip CI or it can create an infinte deploy loop
    ; https://circleci.com/docs/1.0/skip-a-build/
@@ -51,7 +52,7 @@
 
   (when (boot.git/dirty?)
    (boot.util/info
-    (prn-str (remove git-gh-pages? (git-status-flat))))
+    (prn-str (boot.git/status)))
    (boot.util/exit-error
     (boot.util/fail "Attempted to deploy to Github Pages with a dirty repo. Commit your changes and try again.\n")))
   ; @todo - use jgit for this part
